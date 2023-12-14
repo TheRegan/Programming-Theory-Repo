@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class CatchableObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //ENCAPSULATION
+    [SerializeField] private int m_PointValue;
+    public int PointValue
     {
-        
+        get { return m_PointValue; }
+        private set
+        {
+            if (value < 0.0f)
+            {
+                Debug.LogError("You can't set a negative point value!");
+            }
+            else
+            {
+                m_PointValue = value;
+            }
+        } 
     }
 
-    // Update is called once per frame
-    void Update()
+    //ABSTRACTION
+    public virtual void addPoints()
     {
-        
+        //TODO: add points to Counter.cs
+    }
+
+    //ABSTRACTION
+    private void deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            addPoints();
+            deactivate();
+        }   
     }
 }

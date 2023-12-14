@@ -14,11 +14,4 @@ public class Counter : MonoBehaviour
     {
         Count = 0;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Count += 1;
-        CounterText.text = "Count : " + Count;
-        other.gameObject.SetActive(false);
-    }
 }
