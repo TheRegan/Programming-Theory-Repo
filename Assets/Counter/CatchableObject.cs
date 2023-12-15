@@ -25,10 +25,9 @@ public class CatchableObject : MonoBehaviour
     //ABSTRACTION
     public virtual void addPoints()
     {
-        //TODO: add points to Counter.cs
+        Counter.Instance.IncreaseScore(PointValue);
     }
 
-    //ABSTRACTION
     private void deactivate()
     {
         gameObject.SetActive(false);
