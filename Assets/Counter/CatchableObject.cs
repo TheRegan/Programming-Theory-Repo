@@ -6,7 +6,7 @@ public class CatchableObject : MonoBehaviour
 {
     //ENCAPSULATION
     [SerializeField] private int m_PointValue;
-    public int PointValue
+    public virtual int PointValue
     {
         get { return m_PointValue; }
         private set
@@ -22,8 +22,38 @@ public class CatchableObject : MonoBehaviour
         } 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        ClassifyTriggerEntered(other);
+    }
+
     //ABSTRACTION
-    public virtual void addPoints()
+    public virtual void ClassifyTriggerEntered(Collider triggerEntered)
+    {
+        if (triggerEntered.CompareTag("Player"))
+        {
+            CaughtObject();
+            return;
+        }
+        if (triggerEntered.CompareTag("Respawn"))
+        {
+            ObjectFellIntoTheVoid();
+            return;
+        }
+    }
+
+    public virtual void CaughtObject()
+    {
+        addPoints();
+        deactivate();
+    }
+
+    public virtual void ObjectFellIntoTheVoid()
+    {
+        deactivate();
+    }
+
+    private void addPoints()
     {
         Counter.Instance.IncreaseScore(PointValue);
     }
@@ -31,14 +61,5 @@ public class CatchableObject : MonoBehaviour
     private void deactivate()
     {
         gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            addPoints();
-            deactivate();
-        }   
     }
 }
