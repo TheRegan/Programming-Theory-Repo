@@ -28,6 +28,6 @@ public class Counter : MonoBehaviour
     public void IncreaseScore(int pointsToAdd)
     {
         Count += pointsToAdd;
-        CounterText.text = Count.ToString();
+        CounterText.text = "Count: " + Count.ToString();
     }
 }
